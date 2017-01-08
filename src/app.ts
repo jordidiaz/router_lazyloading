@@ -6,6 +6,7 @@ import {MenuModule, MENU_ROUTES} from './menu';
 import {Repository} from './repository';
 
 import { CanLoadMessages } from './guards/can-load-messages';
+import { CanActivateSettings } from './guards/can-activate-settings';
 
 @Component({
   selector: 'root-cmp',
@@ -30,12 +31,13 @@ export class RootCmp {}
       },
       { 
         path: 'settings', 
-        loadChildren: './settings/index#SettingsModule' 
+        loadChildren: './settings/index#SettingsModule',
+        canActivate: [CanActivateSettings]
       }
     ], {enableTracing: true})
   ],
 
-  providers: [Repository, CanLoadMessages],
+  providers: [Repository, CanLoadMessages, CanActivateSettings],
   bootstrap: [RootCmp],
   declarations: [RootCmp]
 })
